@@ -1,6 +1,7 @@
+@charset "UTF-8";
 body {
   margin: 0;
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
 }
 
 .header {
@@ -13,22 +14,18 @@ body {
   top: 0px;
   width: 100%;
 }
-
 .header__logo {
   margin-left: 30px;
   display: flex;
 }
-
 .header__img {
   width: 60px;
   height: 60px;
   margin-right: 5px;
 }
-
 .header__menu {
   margin-right: 30px;
 }
-
 .header__menu ul {
   display: none;
   list-style: none;
@@ -38,34 +35,28 @@ body {
   width: 100px;
   text-align: right;
 }
-
-.header__menu:hover ul,
-ul:hover {
-  display: block;
-}
-
 .header__menu li {
   margin: 10px 0px;
 }
-
 .header__menu li a {
   color: white;
   text-decoration: none;
 }
-
 .header__menu li a:hover {
   text-decoration: underline;
 }
-
 .header__menu--profile {
   align-items: center;
   display: flex;
   cursor: pointer;
 }
-
 .header__menu--profile img {
   margin-right: 8px;
   width: 40px;
+}
+.header__menu:hover ul,
+.header__menu ul:hover {
+  display: block;
 }
 
 .registro {
@@ -75,9 +66,9 @@ ul:hover {
   flex-direction: column;
   justify-content: center;
   padding: 0px 30px;
-  min-height: calc(100vh - 200px); /* El ancho será igual al tamaño de todo el height menos 200px (100px del header + 100px del footer) */
+  min-height: calc(100vh - 200px);
+  /* El ancho será igual al tamaño de todo el height menos 200px (100px del header + 100px del footer) */
 }
-
 .registro__container {
   background-color: rgba(255, 255, 255, 0.1);
   border: 2px solid white;
@@ -91,59 +82,58 @@ ul:hover {
   padding: 60px 68px 40px;
   width: 300px;
 }
-
 .registro__container--form {
   display: flex;
   flex-direction: column;
 }
-
 .registro__container--form label {
   font-size: 14px;
 }
-
 .registro__container--remember-me {
   color: white;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
 }
-
 .registro__container--remember-me a {
   color: white;
   font-size: 14px;
   text-decoration: none;
 }
-
 .registro__container--remember-me a:hover {
   text-decoration: underline;
 }
-
 .registro__container--social-media > div {
   align-items: center;
   display: flex;
   font-size: 14px;
   margin-bottom: 10px;
 }
-
 .registro__container--social-media > div > img {
   margin-right: 10px;
   width: 30px;
 }
-
 .registro__container--register {
   font-size: 14px;
   text-align: center;
 }
-
 .registro__container--register a {
   color: white;
   font-weight: bold;
   font-size: 16px;
   text-decoration: none;
 }
-
 .registro__container--register a:hover {
   text-decoration: underline;
+}
+@media only screen and (max-width: 600px) {
+  .registro__container {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0px;
+    width: 100%;
+  }
 }
 
 .footer {
@@ -153,7 +143,6 @@ ul:hover {
   height: 100px;
   width: 100%;
 }
-
 .footer a {
   color: white;
   cursor: pointer;
@@ -161,9 +150,14 @@ ul:hover {
   padding-left: 30px;
   text-decoration: none;
 }
-
 .footer a:hover {
   text-decoration: underline;
+}
+@media only screen and (max-width: 600px) {
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 .input {
@@ -173,7 +167,7 @@ ul:hover {
   border-right: 0px;
   border-top: 0px;
   color: white;
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
   font-size: 16px;
   height: 50px;
   margin-bottom: 20px;
@@ -193,7 +187,7 @@ ul:hover {
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
   height: 50px;
   letter-spacing: 1px;
   margin: 10px 0px;
@@ -213,3 +207,5 @@ ul:hover {
     flex-direction: column;
   }
 }
+
+/*# sourceMappingURL=style.css.map */
