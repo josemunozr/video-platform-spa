@@ -1,0 +1,16 @@
+{
+  "name": "@jmunozr_/mediaplayer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/MediaPlayer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc src/**/*.ts src/plugins/Ads/*.ts --outDir lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}

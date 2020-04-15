@@ -1,0 +1,33 @@
+{
+  "name": "video-platform",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@jmunozr_/mediaplayer": "^1.0.0",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.0"
+  },
+  "scripts": {
+    "clear": "rm -rf dist/ .cache",
+    "dist": "parcel src/pages/**/*.html",
+    "start": "npm run clear && npm run dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josemunozr/video-platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josemunozr/video-platform/issues"
+  },
+  "homepage": "https://github.com/josemunozr/video-platform#readme",
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
+}
