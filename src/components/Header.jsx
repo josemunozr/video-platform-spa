@@ -1,10 +1,12 @@
 import React from 'react';
 import '../assets/styles/components/Header.scss';
+import playIcon from '../assets/statics/play-icon.png';
+import userIcon from '../assets/statics/user-icon.png';
 
 const Header = () => (
   <header className='header'>
     <div className='header__logo'>
-      <img className='header__img' src='../../../assets/play-icon.png' alt='Video Platform' />
+      <img className='header__img' src={playIcon} alt='Video Platform' />
       <h3>
         Video
         <strong>Platform</strong>
@@ -12,7 +14,7 @@ const Header = () => (
     </div>
     <div className='header__menu'>
       <div className='header__menu--profile'>
-        <img src='../../assets/user-icon.png' alt='' />
+        <img src={userIcon} alt='' />
         <p>Perfil</p>
       </div>
       <ul>
