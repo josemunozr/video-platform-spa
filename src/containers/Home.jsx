@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import Search from '../components/Search';
 import Categories from '../components/Categories';
@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import useInitialState from '../hooks/useInitialState';
 import '../assets/styles/App.scss';
 
-const App = () => {
+const Home = () => {
   const API = 'http://localhost:3000/initialState';
   const initialState = useInitialState(API);
   return (
@@ -47,4 +47,4 @@ const App = () => {
     </div>
   );
 };
-export default App;
+export default Home;
