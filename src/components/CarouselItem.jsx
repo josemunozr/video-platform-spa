@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SweetAlert from 'sweetalert2-react';
@@ -38,7 +39,9 @@ const CarouselItem = (props) => {
         <img className='carousel-item__img' src={cover} alt={title} />
         <div className='carousel-item__details'>
           <div>
-            <img className='carousel-item__details--img' src={playIcon} alt='Play Icon' />
+            <Link to={`/player/${id}`}>
+              <img className='carousel-item__details--img' src={playIcon} alt='Play Icon' />
+            </Link>
             {isMyList ? <img className='carousel-item__details--img' src={removeIcon} alt='Remove Icon' onClick={() => handleDeleteFavorite(id)} /> : <img className='carousel-item__details--img' src={plusIcon} alt='Plus Icon' onClick={handleSetFavorite} />}
           </div>
           <p className='carousel-item__details--title'>{title}</p>
