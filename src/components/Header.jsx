@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logoutRequest } from '../actions';
 import gravatar from '../utils/gravatar';
 import '../assets/styles/components/Header.scss';
 import playIcon from '../assets/statics/play-icon.png';
@@ -10,6 +11,10 @@ const Header = (props) => {
   const { user } = props;
 
   const hasUser = Object.keys(user).length > 0;
+
+  const handleLogOut = () => {
+    props.logoutRequest({});
+  };
 
   return (
     <header className='header'>
@@ -28,10 +33,20 @@ const Header = (props) => {
           <p>Perfil</p>
         </div>
         <ul>
-          <li>
-            <a href='/'>Cuenta</a>
-          </li>
-          <Link to='/login'>Login</Link>
+          {hasUser ? (
+            <li>
+              <a href='/'>Cuenta</a>
+            </li>
+          ) : null}
+          {hasUser ? (
+            <li>
+              <a href='#logout' onClick={handleLogOut}>
+                Cerrar sessión
+              </a>
+            </li>
+          ) : (
+            <Link to='/login'>Login</Link>
+          )}
         </ul>
       </div>
     </header>
@@ -39,7 +54,11 @@ const Header = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  user: state.user
 });
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = {
+  logoutRequest
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
