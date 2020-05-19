@@ -7,6 +7,10 @@
   justify-content: space-between;
   top: 0px;
   width: 100%;
+  &.isLogin,
+  &.isRegister {
+    background-color: #21c08b;
+  }
   a {
     text-decoration: none;
     color: white;
@@ -48,6 +52,8 @@
       img {
         margin-right: 8px;
         width: 40px;
+        border-radius: 50%;
+        object-fit: cover;
       }
     }
     &:hover ul,

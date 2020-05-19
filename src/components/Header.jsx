@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutRequest } from '../actions';
@@ -8,16 +9,19 @@ import playIcon from '../assets/statics/play-icon.png';
 import userIcon from '../assets/statics/user-icon.png';
 
 const Header = (props) => {
-  const { user } = props;
-
+  const { user, isLogin, isRegister } = props;
   const hasUser = Object.keys(user).length > 0;
-
   const handleLogOut = () => {
     props.logoutRequest({});
   };
 
   return (
-    <header className='header'>
+    <header
+      className={classNames('header', {
+        isLogin,
+        isRegister
+      })}
+    >
       <Link to='/'>
         <div className='header__logo'>
           <img className='header__img' src={playIcon} alt='Video Platform' />
