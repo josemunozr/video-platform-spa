@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import reducer from './reducers';
 import App from './routers/App';
 
-import InitialState from '../initialState.json';
+import InitialState from '../../initialState.json';
 
 const store = createStore(reducer, InitialState);
 

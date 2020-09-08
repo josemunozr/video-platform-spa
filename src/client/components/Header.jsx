@@ -19,9 +19,8 @@ const Header = (props) => {
     <header
       className={classNames('header', {
         isLogin,
-        isRegister
-      })}
-    >
+        isRegister,
+      })}>
       <Link to='/'>
         <div className='header__logo'>
           <img className='header__img' src={playIcon} alt='Video Platform' />
@@ -33,7 +32,11 @@ const Header = (props) => {
       </Link>
       <div className='header__menu'>
         <div className='header__menu--profile'>
-          {hasUser ? <img src={gravatar(user.email)} alt={user.email} /> : <img src={userIcon} alt='' />}
+          {hasUser ? (
+            <img src={gravatar(user.email)} alt={user.email} />
+          ) : (
+            <img src={userIcon} alt='' />
+          )}
           <p>Perfil</p>
         </div>
         <ul>
@@ -58,11 +61,11 @@ const Header = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
 });
 
 const mapDispatchToProps = {
-  logoutRequest
+  logoutRequest,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

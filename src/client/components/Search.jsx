@@ -5,18 +5,25 @@ import '../assets/styles/components/Search.scss';
 
 const Search = (props) => {
   const handleChange = (event) => {
-    event.target.value !== '' ? props.getResultSearch(event.target.value) : props.getResultSearch(null);
+    event.target.value !== ''
+      ? props.getResultSearch(event.target.value)
+      : props.getResultSearch(null);
   };
   return (
     <section className='search'>
       <h2 className='search__title'>¿Qué quieres ver hoy?</h2>
-      <input type='text' className='input' placeholder='Buscar...' onChange={handleChange} />
+      <input
+        type='text'
+        className='input'
+        placeholder='Buscar...'
+        onChange={handleChange}
+      />
     </section>
   );
 };
 
 const mapDistpachToProps = {
-  getResultSearch
+  getResultSearch,
 };
 
 export default connect(null, mapDistpachToProps)(Search);
