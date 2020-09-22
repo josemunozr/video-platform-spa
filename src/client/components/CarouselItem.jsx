@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SweetAlert from 'sweetalert2-react';
+// import SweetAlert from 'sweetalert2-react';
 import { setFavorite, deleteFavorite } from '../actions';
 import '../assets/styles/components/CarouselItem.scss';
 import playIcon from '../assets/statics/play-icon.png';
@@ -20,6 +20,7 @@ const CarouselItem = (props) => {
     isMyList,
     myList,
   } = props;
+
   const [showSwal, setShowSwal] = useState(false);
 
   const handleSetFavorite = () => {
@@ -75,12 +76,12 @@ const CarouselItem = (props) => {
           <p className='carousel-item__details--subtitle'>{`${year} ${contentRating} ${duration}`}</p>
         </div>
       </div>
-      <SweetAlert
+      {/* <SweetAlert
         show={showSwal}
         title='Agregar ítem'
         text={`${title} ya se encuentra en tu lista`}
         onConfirm={() => setShowSwal(false)}
-      />
+      /> */}
     </>
   );
 };
