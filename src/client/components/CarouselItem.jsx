@@ -21,7 +21,7 @@ const CarouselItem = (props) => {
     myList,
   } = props;
 
-  const [showSwal, setShowSwal] = useState(false);
+  // const [showSwal, setShowSwal] = useState(false);
 
   const handleSetFavorite = () => {
     const item = myList.find((item) => item.id === id);
