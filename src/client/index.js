@@ -6,12 +6,13 @@ import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
 import reducer from './reducers';
 import App from './routers/App';
-import InitialState from './utils/initialState';
 
 const history = createBrowserHistory();
-const store = createStore(reducer, InitialState);
+const preloadedState = window.__PRELOADED_STATE__;
+const store = createStore(reducer, preloadedState);
+delete window.__PRELOADED_STATE__;
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <Provider store={store}>
     <Router history={history}>
       <App />
