@@ -14,6 +14,7 @@ import serverRoutes from '../client/routers/serverRoutes';
 import reducer from '../client/reducers';
 import InitialState from '../client/utils/initialState';
 import Layout from '../client/components/Layout';
+import getManifest from './getManifest'
 
 dotenv.config();
 const { ENV, PORT } = process.env;
@@ -29,6 +30,11 @@ if (ENV === 'development') {
   app.use(webpackDevMiddleware(compiler, serverConfig));
   app.use(webpackHotMiddleware(compiler));
 } else {
+  app.use((req, res, next) => {
+    if (!req.hashManifest) req.hashManifest = getManifest()
+    next()
+  });
+
   app.use(express.static(`${__dirname}/public`));
   app.use(helmet());
   app.use(
@@ -39,25 +45,25 @@ if (ENV === 'development') {
   app.disable('x-powered-by');
 }
 
-const sendResponse = (html, preloadedState) => {
+const sendResponse = (html, preloadedState, manifest) => {
+  const mainStyles = manifest ? manifest['main.css'] : 'assets/app.css';
+  const mainBuild = manifest ? manifest['main.js'] : 'assets/app.js';
+
   return `
   <!DOCTYPE html>
   <html lang="en">
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="assets/app.css" type="text/css"/>
+      <link rel="stylesheet" href="${mainStyles}" type="text/css"/>
       <title>video platform</title>
     </head>
     <body>
       <div id="app">${html}</div>
       <script>
-        window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
-          /</g,
-          '\\u003c'
-        )}
+        window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
       </script>
-      <script src="assets/app.js" type="text/javascript" ></script>
+      <script src="${mainBuild}" type="text/javascript" ></script>
     </body>
   </html> 
 `;
@@ -74,7 +80,7 @@ const renderApp = (req, res) => {
     </Provider>
   );
 
-  res.send(sendResponse(html, preloadedState));
+  res.send(sendResponse(html, preloadedState, req.hashManifest));
 };
 
 app.get('*', renderApp);
