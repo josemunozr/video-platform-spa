@@ -20,7 +20,8 @@ const Header = (props) => {
       className={classNames('header', {
         isLogin,
         isRegister,
-      })}>
+      })}
+    >
       <Link to='/'>
         <div className='header__logo'>
           <img className='header__img' src={playIcon} alt='Video Platform' />

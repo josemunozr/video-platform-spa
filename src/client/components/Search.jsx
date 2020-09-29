@@ -5,9 +5,9 @@ import '../assets/styles/components/Search.scss';
 
 const Search = (props) => {
   const handleChange = (event) => {
-    event.target.value !== ''
-      ? props.getResultSearch(event.target.value)
-      : props.getResultSearch(null);
+    event.target.value !== '' ?
+      props.getResultSearch(event.target.value) :
+      props.getResultSearch(null);
   };
   return (
     <section className='search'>

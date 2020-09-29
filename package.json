@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack-cli --config webpack.config.js",
-    "start:dev": "nodemon src/server/index.js"
+    "build": "rm -rf src/server/public/ && webpack-cli --config webpack.config.js",
+    "start:dev": "nodemon src/server/index.js",
+    "lint": "eslint src/client/ --ext .js --ext .jsx --fix"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
