@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production",
-    "start": "webpack-dev-server --open --mode development",
-    "start:server": "json-server initialState.json"
+    "build": "rm -rf src/server/public/ && webpack-cli --config webpack.config.js",
+    "start:dev": "nodemon src/server/index.js",
+    "lint": "eslint src/client/ --ext .js --ext .jsx --fix"
   },
   "repository": {
     "type": "git",
@@ -21,15 +21,26 @@
   },
   "homepage": "https://github.com/josemunozr/video-platform#readme",
   "dependencies": {
+    "@babel/register": "^7.11.5",
+    "asset-require-hook": "^1.2.0",
     "classnames": "^2.2.6",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "history": "^5.0.0",
+    "ignore-styles": "^5.0.1",
     "md5": "^2.2.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hot-loader": "^4.12.21",
     "react-redux": "^7.2.0",
+    "react-router": "^5.2.0",
+    "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
-    "sweetalert2-react": "^0.8.3"
+    "sweetalert2-react": "^0.8.3",
+    "webpack": "^4.44.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -37,23 +48,27 @@
     "@babel/preset-react": "^7.9.4",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
+    "compression-webpack-plugin": "^6.0.2",
     "css-loader": "^3.5.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
-    "file-loader": "^6.0.0",
-    "html-loader": "^1.1.0",
-    "html-webpack-plugin": "^4.2.0",
+    "file-loader": "5.1.0",
     "json-server": "^0.16.1",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4",
     "prettier-eslint": "^9.0.1",
     "sass-loader": "^8.0.2",
-    "webpack": "^4.43.0",
+    "terser-webpack-plugin": "^4.2.2",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-manifest-plugin": "^2.2.0"
   }
 }
