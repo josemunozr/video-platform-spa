@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable indent */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
 import express from 'express';
@@ -10,16 +12,15 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { renderRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
+import axios from 'axios';
+import cookieParser from 'cookie-parser';
+import boom from '@hapi/boom';
+import passport from 'passport';
 import serverRoutes from '../client/routers/serverRoutes';
 import reducer from '../client/reducers';
 import InitialState from '../client/utils/initialState';
 import Layout from '../client/components/Layout';
 import getManifest from './getManifest';
-
-import cookieParser from 'cookie-parser';
-import boom from '@hapi/boom';
-import passport from 'passport';
-import axios from 'axios';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./utils/auth/strategies/basic');
+
 if (ENV === 'development') {
   console.log('development config');
   const webpackConfig = require('../../webpack.config');
@@ -101,7 +103,7 @@ const renderApp = (req, res) => {
 };
 
 app.post('/auth/sign-in', async (req, res, next) => {
-  passport.authenticate('basic', (error, data) => {
+  passport.authenticate('basic', function (error, data) {
     try {
       if (error || !data) {
         return next(boom.unauthorized());
@@ -110,11 +112,11 @@ app.post('/auth/sign-in', async (req, res, next) => {
       req.login(data, { session: false }, async (error) => {
         if (error) next(error);
 
-        const { token, user } = data;
+        const { token, ...user } = data;
 
         res.cookie('token', token, {
-          httpOnly: !config.dev,
-          secure: !config.dev,
+          httpOnly: !(ENV === 'development'),
+          secure: !(ENV === 'development'),
         });
 
         res.status(200).json(user);
@@ -128,17 +130,21 @@ app.post('/auth/sign-in', async (req, res, next) => {
 app.post('/auth/sign-up', async (req, res, next) => {
   const { body: user } = req;
   try {
-    const { data } = await axios({
-      url: `${config.apiUrl}/api/auth/sign-up`,
+    const userData = await axios({
+      url: `${process.env.API_URL}/api/auth/sign-up`,
       method: 'post',
-      data: user,
+      data: {
+        email: user.email,
+        name: user.name,
+        password: user.password,
+      },
     });
 
-    if (!data || status !== 201) {
-      next();
-    }
-
-    res.status(201).json({ message: 'user created', data: data });
+    res.status(201).json({
+      name: req.body.name,
+      email: req.body.email,
+      id: userData.data.id,
+    });
   } catch (error) {
     next(error);
   }

@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginRequest } from '../actions';
+import { loginUser } from '../actions';
 import Header from '../components/Header';
 import googleIcon from '../assets/statics/google-icon.png';
 import twitterIcon from '../assets/statics/twitter-icon.png';
 import '../assets/styles/components/Login.scss';
 
 const Login = (props) => {
-  const { loginRequest, history } = props;
+  const { loginUser, history } = props;
   const [form, setValues] = useState({});
 
   const handleChangeInput = (event) => {
     setValues({
       ...form,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    loginRequest(form);
-    history.push('/');
+    loginUser(form).then((data) => {
+      history.push('/');
+    });
   };
 
   return (
@@ -31,8 +32,20 @@ const Login = (props) => {
         <section className='login__container'>
           <h2>Inicia sesión</h2>
           <form className='login__container--form' onSubmit={handleSubmit}>
-            <input name='email' className='input' type='email' placeholder='Correo' onChange={handleChangeInput} />
-            <input name='password' className='input' type='password' placeholder='Contraseña' onChange={handleChangeInput} />
+            <input
+              name='email'
+              className='input'
+              type='email'
+              placeholder='Correo'
+              onChange={handleChangeInput}
+            />
+            <input
+              name='password'
+              className='input'
+              type='password'
+              placeholder='Contraseña'
+              onChange={handleChangeInput}
+            />
             <button type='submit' className='button'>
               Iniciar sesión
             </button>
@@ -65,7 +78,7 @@ const Login = (props) => {
 };
 
 const mapDispatchToProps = {
-  loginRequest
+  loginUser,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
