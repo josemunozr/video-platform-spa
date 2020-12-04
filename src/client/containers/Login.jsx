@@ -21,7 +21,7 @@ const Login = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     loginUser(form).then((data) => {
-      history.push('/');
+      history.go('/');
     });
   };
 

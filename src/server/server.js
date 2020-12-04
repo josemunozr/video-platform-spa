@@ -18,7 +18,7 @@ import boom from '@hapi/boom';
 import passport from 'passport';
 import serverRoutes from '../client/routers/serverRoutes';
 import reducer from '../client/reducers';
-import InitialState from '../client/utils/initialState';
+// import InitialState from '../client/utils/initialState';
 import Layout from '../client/components/Layout';
 import getManifest from './getManifest';
 
@@ -89,12 +89,35 @@ const sendResponse = (html, preloadedState, manifest) => {
 };
 
 const renderApp = (req, res) => {
-  const store = createStore(reducer, InitialState);
+  const { name, email, id } = req.cookies;
+  let initialState;
+  if (id) {
+    initialState = {
+      user: { name, email, id },
+      playing: {},
+      searchResult: [],
+      myList: [],
+      trends: [],
+      originals: [],
+    };
+  } else {
+    initialState = {
+      user: {},
+      playing: {},
+      searchResult: [],
+      myList: [],
+      trends: [],
+      originals: [],
+    };
+  }
+
+  const store = createStore(reducer, initialState);
   const preloadedState = store.getState();
+  const isLogged = initialState.user.id;
   const html = renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={{}}>
-        <Layout>{renderRoutes(serverRoutes)}</Layout>
+        <Layout>{renderRoutes(serverRoutes(isLogged))}</Layout>
       </StaticRouter>
     </Provider>
   );

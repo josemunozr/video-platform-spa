@@ -12,6 +12,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const history = createBrowserHistory();
 const preloadedState = window.__PRELOADED_STATE__;
+
 const store = createStore(
   reducer,
   preloadedState,
@@ -22,7 +23,7 @@ delete window.__PRELOADED_STATE__;
 ReactDOM.hydrate(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <App isLogged={preloadedState.user.id} />
     </Router>
   </Provider>,
   document.getElementById('app')
