@@ -7,10 +7,10 @@ import CarouselItem from '../components/CarouselItem';
 import '../assets/styles/App.scss';
 import Header from '../components/Header';
 
-const Home = ({ myList, trends, originals, searchResult }) => {
+const Home = ({ myList, trends, originals, searchResult, history }) => {
   return (
     <>
-      <Header />
+      <Header history={history} />
       <Search />
       {searchResult.length !== 0 && (
         <Categories title='Resultado búsqueda'>
@@ -56,6 +56,6 @@ const mapStateToProps = (state) => ({
   myList: state.myList,
   trends: state.trends,
   originals: state.originals,
-  searchResult: state.searchResult
+  searchResult: state.searchResult,
 });
 export default connect(mapStateToProps, null)(Home);

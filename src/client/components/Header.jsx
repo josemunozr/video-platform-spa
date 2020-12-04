@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
@@ -9,19 +10,20 @@ import playIcon from '../assets/statics/play-icon.png';
 import userIcon from '../assets/statics/user-icon.png';
 
 const Header = (props) => {
-  const { user, isLogin, isRegister } = props;
+  const { user, isLogin, isRegister, history } = props;
+  const headerClass = classNames('header', { isLogin, isRegister });
   const hasUser = Object.keys(user).length > 0;
   const handleLogOut = () => {
+    document.cookie = 'email=';
+    document.cookie = 'name=';
+    document.cookie = 'id=';
+    document.cookie = 'token=';
     props.logoutRequest({});
+    history.go('/login');
   };
 
   return (
-    <header
-      className={classNames('header', {
-        isLogin,
-        isRegister,
-      })}
-    >
+    <header className={headerClass}>
       <Link to='/'>
         <div className='header__logo'>
           <img className='header__img' src={playIcon} alt='Video Platform' />
