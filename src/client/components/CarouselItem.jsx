@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // import SweetAlert from 'sweetalert2-react';
-import { setFavorite, deleteFavorite } from '../actions';
+import { setFavoriteRequest, deleteFavorite } from '../actions';
 import '../assets/styles/components/CarouselItem.scss';
 import playIcon from '../assets/statics/play-icon.png';
 import plusIcon from '../assets/statics/plus-icon.png';
@@ -11,7 +11,7 @@ import removeIcon from '../assets/statics/remove-icon.png';
 
 const CarouselItem = (props) => {
   const {
-    id,
+    _id,
     cover,
     title,
     year,
@@ -24,10 +24,10 @@ const CarouselItem = (props) => {
   // const [showSwal, setShowSwal] = useState(false);
 
   const handleSetFavorite = () => {
-    const item = myList.find((item) => item.id === id);
+    const item = myList.find((item) => item._id === _id);
     if (!item) {
-      props.setFavorite({
-        id,
+      props.setFavoriteRequest({
+        _id,
         cover,
         title,
         year,
@@ -49,7 +49,7 @@ const CarouselItem = (props) => {
         <img className='carousel-item__img' src={cover} alt={title} />
         <div className='carousel-item__details'>
           <div>
-            <Link to={`/player/${id}`}>
+            <Link to={`/player/${_id}`}>
               <img
                 className='carousel-item__details--img'
                 src={playIcon}
@@ -61,7 +61,7 @@ const CarouselItem = (props) => {
                 className='carousel-item__details--img'
                 src={removeIcon}
                 alt='Remove Icon'
-                onClick={() => handleDeleteFavorite(id)}
+                onClick={() => handleDeleteFavorite(_id)}
               />
             ) : (
               <img
@@ -95,7 +95,7 @@ CarouselItem.prototype = {
 };
 
 const mapDispatchToProps = {
-  setFavorite,
+  setFavoriteRequest,
   deleteFavorite,
 };
 

@@ -18,7 +18,6 @@ import boom from '@hapi/boom';
 import passport from 'passport';
 import serverRoutes from '../client/routers/serverRoutes';
 import reducer from '../client/reducers';
-// import InitialState from '../client/utils/initialState';
 import Layout from '../client/components/Layout';
 import getManifest from './getManifest';
 
@@ -88,19 +87,29 @@ const sendResponse = (html, preloadedState, manifest) => {
 `;
 };
 
-const renderApp = (req, res) => {
-  const { name, email, id } = req.cookies;
+const renderApp = async (req, res) => {
+  const { token, name, email, id } = req.cookies;
   let initialState;
-  if (id) {
+  try {
+    let movieList = await axios({
+      url: `${process.env.API_URL}/api/movies`,
+      method: 'GET',
+      headers: { Authorization: `bearer ${token}` },
+    });
+    movieList = movieList.data.data;
     initialState = {
       user: { name, email, id },
       playing: {},
       searchResult: [],
       myList: [],
-      trends: [],
-      originals: [],
+      trends: movieList.filter(
+        (movie) => movie.contentRating === 'PG' && movie._id
+      ),
+      originals: movieList.filter(
+        (movie) => movie.contentRating === 'G' && movie._id
+      ),
     };
-  } else {
+  } catch (error) {
     initialState = {
       user: {},
       playing: {},
@@ -168,6 +177,31 @@ app.post('/auth/sign-up', async (req, res, next) => {
       email: req.body.email,
       id: userData.data.id,
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post('/user-movies', async (req, res, next) => {
+  const { body } = req;
+  const { id, token } = req.cookies;
+
+  try {
+    const { data, status } = await axios({
+      url: `${process.env.API_URL}/api/user-movies`,
+      method: 'POST',
+      headers: { Authorization: `bearer ${token}` },
+      data: {
+        userId: id,
+        movieId: body._id,
+      },
+    });
+
+    if (status !== 201) {
+      next(boom.badImplementation());
+    }
+
+    return res.status(201).json(data);
   } catch (error) {
     next(error);
   }

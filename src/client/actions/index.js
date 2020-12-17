@@ -1,9 +1,19 @@
+/* eslint-disable no-use-before-define */
 import axios from 'axios';
 
 export const setFavorite = (payload) => ({
   type: 'SET_FAVORITE',
   payload,
 });
+
+export const setFavoriteRequest = (payload) => {
+  return (dispatch) => {
+    return axios
+      .post('/user-movies', payload)
+      .then(({ data }) => dispatch(setFavorite(payload)))
+      .catch((error) => dispatch(setError(error)));
+  };
+};
 
 export const deleteFavorite = (payload) => ({
   type: 'DELETE_FAVORITE',
