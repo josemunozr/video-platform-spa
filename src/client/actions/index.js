@@ -1,24 +1,33 @@
 /* eslint-disable no-use-before-define */
 import axios from 'axios';
 
-export const setFavorite = (payload) => ({
+export const setFavoriteRequest = (payload) => ({
   type: 'SET_FAVORITE',
   payload,
 });
 
-export const setFavoriteRequest = (payload) => {
+export const setFavorite = (payload) => {
   return (dispatch) => {
     return axios
       .post('/user-movies', payload)
-      .then(({ data }) => dispatch(setFavorite(payload)))
+      .then(({ data }) => dispatch(setFavoriteRequest(payload)))
       .catch((error) => dispatch(setError(error)));
   };
 };
 
-export const deleteFavorite = (payload) => ({
+export const deleteFavoriteRequest = (payload) => ({
   type: 'DELETE_FAVORITE',
   payload,
 });
+
+export const deleteFavorite = (payload) => {
+  return (dispatch) => {
+    return axios
+      .delete(`/user-movies/${payload}`)
+      .then(({ data }) => dispatch(deleteFavoriteRequest(payload)))
+      .catch((error) => dispatch(setError(error)));
+  };
+};
 
 export const loginRequest = (payload) => ({
   type: 'LOGIN_REQUEST',

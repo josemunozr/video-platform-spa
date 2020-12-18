@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // import SweetAlert from 'sweetalert2-react';
-import { setFavoriteRequest, deleteFavorite } from '../actions';
+import { setFavorite, deleteFavorite } from '../actions';
 import '../assets/styles/components/CarouselItem.scss';
 import playIcon from '../assets/statics/play-icon.png';
 import plusIcon from '../assets/statics/plus-icon.png';
@@ -26,7 +26,7 @@ const CarouselItem = (props) => {
   const handleSetFavorite = () => {
     const item = myList.find((item) => item._id === _id);
     if (!item) {
-      props.setFavoriteRequest({
+      props.setFavorite({
         _id,
         cover,
         title,
@@ -95,7 +95,7 @@ CarouselItem.prototype = {
 };
 
 const mapDispatchToProps = {
-  setFavoriteRequest,
+  setFavorite,
   deleteFavorite,
 };
 
