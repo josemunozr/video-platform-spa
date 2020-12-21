@@ -10,7 +10,7 @@ export const setFavorite = (payload) => {
   return (dispatch) => {
     return axios
       .post('/user-movies', payload)
-      .then(({ data }) => dispatch(setFavoriteRequest(payload)))
+      .then(({ data }) => dispatch(setFavoriteRequest(data)))
       .catch((error) => dispatch(setError(error)));
   };
 };

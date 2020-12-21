@@ -96,12 +96,24 @@ const renderApp = async (req, res) => {
       method: 'GET',
       headers: { Authorization: `bearer ${token}` },
     });
+
+    let myList = await axios({
+      url: `${process.env.API_URL}/api/user-movies?userId=${id}`,
+      method: 'GET',
+      headers: { Authorization: `bearer ${token}` },
+    });
+
     movieList = movieList.data.data;
+    myList = myList.data.data;
     initialState = {
       user: { name, email, id },
       playing: {},
       searchResult: [],
-      myList: [],
+      myList: myList.map((myMovie) => {
+        const movie = movieList.find((movie) => movie._id === myMovie.movieId);
+        movie.userMovieId = myMovie._id;
+        return movie;
+      }),
       trends: movieList.filter(
         (movie) => movie.contentRating === 'PG' && movie._id
       ),
@@ -198,10 +210,11 @@ app.post('/user-movies', async (req, res, next) => {
     });
 
     if (status !== 201) {
-      next(boom.badImplementation());
+      next(boom.badImplementation(data));
     }
-
-    return res.status(201).json(data);
+    const userMovie = body;
+    userMovie.userMovieId = data.data;
+    return res.status(201).json(userMovie);
   } catch (error) {
     next(error);
   }

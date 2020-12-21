@@ -11,6 +11,7 @@ import removeIcon from '../assets/statics/remove-icon.png';
 
 const CarouselItem = (props) => {
   const {
+    userMovieId,
     _id,
     cover,
     title,
@@ -39,8 +40,8 @@ const CarouselItem = (props) => {
     }
   };
 
-  const handleDeleteFavorite = (idItem) => {
-    props.deleteFavorite(idItem);
+  const handleDeleteFavorite = (userMovieId) => {
+    props.deleteFavorite(userMovieId);
   };
 
   return (
@@ -61,7 +62,7 @@ const CarouselItem = (props) => {
                 className='carousel-item__details--img'
                 src={removeIcon}
                 alt='Remove Icon'
-                onClick={() => handleDeleteFavorite(_id)}
+                onClick={() => handleDeleteFavorite(userMovieId)}
               />
             ) : (
               <img
