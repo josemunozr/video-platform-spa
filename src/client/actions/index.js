@@ -1,16 +1,16 @@
 /* eslint-disable no-use-before-define */
 import axios from 'axios';
 
-export const setFavoriteRequest = (payload) => ({
+export const setFavorite = (payload) => ({
   type: 'SET_FAVORITE',
   payload,
 });
 
-export const setFavorite = (payload) => {
+export const setFavoriteRequest = (payload) => {
   return (dispatch) => {
     return axios
       .post('/user-movies', payload)
-      .then(({ data }) => dispatch(setFavoriteRequest(data)))
+      .then(({ data }) => dispatch(setFavorite(data)))
       .catch((error) => dispatch(setError(error)));
   };
 };
