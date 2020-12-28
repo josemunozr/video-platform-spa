@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer /> Footer snapshot 1`] = `
+<footer
+  className="footer"
+>
+  <a
+    href="/not-found"
+    onClick={[Function]}
+  >
+    Terminos de uso
+  </a>
+  <a
+    href="/not-found"
+    onClick={[Function]}
+  >
+    Declaración de privacidad
+  </a>
+  <a
+    href="/not-found"
+    onClick={[Function]}
+  >
+    Centro de ayuda
+  </a>
+</footer>
+`;
